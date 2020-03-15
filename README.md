@@ -14,5 +14,5 @@ source ~/.profile
 
 ## Lessons
 1. [HTML LINK PARSER](https://courses.calhoun.io/lessons/les_goph_16)
-    - Ref: [/link](/link)
 2. [SITEMAP BUILDER](https://courses.calhoun.io/lessons/les_goph_24)
+    - Optimization trick: [the-empty-struct](https://dave.cheney.net/2014/03/25/the-empty-struct)
