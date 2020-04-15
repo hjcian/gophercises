@@ -1,2 +1,2 @@
 #!/bin/bash
-go test -run=. -bench=.  -benchmem
+go test -run=none -bench=.  -benchmem
