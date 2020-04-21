@@ -1,21 +1,21 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"sync"
 	"time"
 )
 
 func producer(jid int, q *[]int) {
 	(*q) = append((*q), jid)
-	fmt.Println("Add job", jid)
+	log.Println("Add job", jid)
 }
 
 func consumer(q *[]int) {
 	if len(*q) > 0 {
 		jid := (*q)[0]
 		(*q) = (*q)[1:len(*q)]
-		fmt.Println("Do job", jid)
+		log.Println("Do job", jid)
 	}
 }
 
@@ -43,51 +43,51 @@ func safeProduce(totalJob int, queue *[]int) {
 }
 
 func naiveMain() {
-	totalJob := 1000
+	totalJob := 10
 	queue := make([]int, 0, totalJob)
-	fmt.Println("initial queue length: ", len(queue))
+	log.Println("initial queue length: ", len(queue))
 
 	go concurrentProduce(totalJob, &queue)
 	go consume(&queue)
 
-	fmt.Println("main goroutine go to sleep...")
+	log.Println("main goroutine go to sleep...")
 	time.Sleep(time.Second * 3)
 
-	fmt.Println("final queue length:", len(queue))
+	log.Println("final queue length:", len(queue))
 }
 
 // analysisProduce observe the race condition take place in job queue (data lost)
 func analysisProduce() {
 	totalJob := 10
 	queue := make([]int, 0, totalJob)
-	fmt.Println(
+	log.Println(
 		"initial queue length: ",
 		len(queue))
 
 	go concurrentProduce(totalJob, &queue)
 
-	fmt.Println("main goroutine go to sleep...")
+	log.Println("main goroutine go to sleep...")
 	time.Sleep(time.Second * 3)
 
-	fmt.Println("final queue length:", len(queue))
+	log.Println("final queue length:", len(queue))
 }
 
 // mutexMain use mutex avoid the race condition, and save the world
 func mutexMain() {
 	totalJob := 100000
 	queue := make([]int, 0, totalJob)
-	fmt.Println("initial queue length: ", len(queue))
+	log.Println("initial queue length: ", len(queue))
 
 	go safeProduce(totalJob, &queue)
 
-	fmt.Println("main goroutine go to sleep...")
+	log.Println("main goroutine go to sleep...")
 	time.Sleep(time.Second * 3)
 
-	fmt.Println("final queue length:", len(queue))
+	log.Println("final queue length:", len(queue))
 }
 
 func main() {
-	// naiveMain()
+	naiveMain()
 	// analysisProduce()
-	mutexMain()
+	// mutexMain()
 }

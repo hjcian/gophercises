@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"os/signal"
@@ -13,9 +14,9 @@ import (
 func consumer(wid int, q <-chan int) {
 	for jid := range q {
 		r := rand.Intn(10)
-		fmt.Printf("[wid:%v] [job-%v] start \n", wid, jid)
+		log.Printf("[wid:%v] [job-%v] start \n", wid, jid)
 		time.Sleep(time.Duration(r) * time.Second)
-		fmt.Printf("[wid:%v] [job-%v] done (spent: %v s) \n", wid, jid, r)
+		log.Printf("[wid:%v] [job-%v] done (spent: %v s) \n", wid, jid, r)
 	}
 	fmt.Printf("[wid:%v] [closed] \n", wid)
 }
@@ -30,7 +31,7 @@ func concurrentProduce(totalJob int, queue chan<- int) {
 
 func multipleConsume(queue <-chan int) {
 	n := runtime.GOMAXPROCS(-1) // get the number of CPU cores
-	fmt.Printf("Total consumers: %v \n", n)
+	log.Printf("Total consumers: %v \n", n)
 	for i := 0; i < n; i++ {
 		go consumer(i, queue)
 	}
@@ -42,7 +43,7 @@ func chanMain() {
 	multipleConsume(queue)
 
 	go concurrentProduce(totalJob, queue)
-	sigsHandler(queue)
+	// sigsHandler(queue)
 	for {
 	}
 }
@@ -55,8 +56,8 @@ func sigsHandler(queue chan int) {
 		select {
 		case s := <-sigs:
 			if intCnt == 0 {
-				fmt.Println(">>> Got signal: ", s)
-				fmt.Println(">>> close the channel")
+				log.Println(">>> Got signal: ", s)
+				log.Println(">>> close the channel")
 				close(queue)
 				intCnt++
 			} else {
