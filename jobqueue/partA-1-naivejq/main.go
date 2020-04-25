@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"sync"
 	"time"
@@ -87,7 +88,9 @@ func mutexMain() {
 }
 
 func main() {
-	naiveMain()
+	// // naiveMain()
 	// analysisProduce()
-	// mutexMain()
+	// // mutexMain()
+	var ch chan int
+	fmt.Println(ch)
 }
