@@ -2,7 +2,43 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
+
+func Lisa(arr []int) int {
+	total := make([]int, len(arr)+1)
+	var hasZero bool
+
+	for _, n := range arr {
+		if n == 0 {
+			hasZero = true
+		}
+		total[n] = n
+	}
+
+	if !hasZero {
+		return 0
+	}
+	for idx, n := range total {
+		if n == 0 && idx != 0 {
+			return idx
+		}
+	}
+
+	return 0
+}
+
+func Cathy(arr []int) int {
+	sort.Ints(arr)
+	rslt := len(arr)
+	for i, v := range arr {
+		if v != i {
+			rslt = i
+			break
+		}
+	}
+	return rslt
+}
 
 func Complement(arr []int) (ret int) {
 	for i, v := range arr {

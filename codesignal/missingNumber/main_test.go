@@ -38,6 +38,19 @@ func Benchmark_missingNumber(b *testing.B) {
 			Complement(slice)
 		}
 	})
+
+	b.Run("Cathy", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Cathy(slice)
+		}
+	})
+
+	b.Run("Lisa", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Lisa(slice)
+		}
+	})
+
 }
 
 func Test_missingNumber(t *testing.T) {
