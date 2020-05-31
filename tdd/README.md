@@ -22,4 +22,4 @@
     
 
 # Progress
-- https://studygolang.gitbook.io/learn-go-with-tests/go-ji-chu/concurrency
+- https://studygolang.gitbook.io/learn-go-with-tests/gou-jian-ying-yong-cheng-xu/http-server
