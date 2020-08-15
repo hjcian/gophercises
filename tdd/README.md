@@ -22,4 +22,4 @@
     
 
 # Progress
-- https://studygolang.gitbook.io/learn-go-with-tests/gou-jian-ying-yong-cheng-xu/http-server
+- https://studygolang.gitbook.io/learn-go-with-tests/gou-jian-ying-yong-cheng-xu/json
